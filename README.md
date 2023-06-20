@@ -1,6 +1,6 @@
 # Rocket Timer
 
-A timer class that can be used to implement a countdown or a normal timer. It supports starting, pausing, stopping, resetting, and switching between countdown and normal modes.
+The rocket_timer package provides a RocketTimer class for implementing countdown or normal timers in Flutter applications, as well as a RocketTimerBuilder widget for building widgets that respond to changes in a RocketTimer object. It supports starting, pausing, stopping, resetting, and switching between countdown and normal modes, and is easy to use and customize.
 
 ## Usage
 

@@ -1,7 +1,7 @@
 name: rocket_timer
-description: A new Flutter package project.
+description: The rocket_timer package provides a RocketTimer class for implementing countdown or normal timers in Flutter applications, as well as a RocketTimerBuilder widget for building widgets that respond to changes in a RocketTimer object. It supports starting, pausing, stopping, resetting, and switching between countdown and normal modes, and is easy to use and customize.
 version: 0.0.1
-homepage:
+homepage: https://github.com/M97Chahboun/rocket_timer
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
