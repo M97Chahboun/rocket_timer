@@ -117,9 +117,9 @@ class MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
             if (_timer != null)
-              AnimatedBuilder(
-                  animation: _timer!,
-                  builder: (context, _) {
+              RocketTimerBuilder(
+                  timer: _timer!,
+                  builder: (context) {
                     return Text(
                       _timer!.formattedDuration,
                       style: Theme.of(context).textTheme.displayLarge,
