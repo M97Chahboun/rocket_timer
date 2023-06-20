@@ -78,7 +78,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _switchTimerType(bool value) {
-    _timer!.switchMode();
+    _timer?.switchMode();
     setState(() {
       _isCountdown = value;
     });
