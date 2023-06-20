@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:rocket_timer/src/extensions.dart';
 
 enum TimerStatus { initial, starting, pause, stop }
 
 enum TimerType { countdown, normal }
 
+/// A timer class that can be used to implement a countdown or a normal timer.
+/// It supports starting, pausing, stopping, resetting, and switching between countdown and normal modes.
 class RocketTimer extends ChangeNotifier {
   int duration;
   TimerStatus status;
@@ -15,27 +18,37 @@ class RocketTimer extends ChangeNotifier {
   late int _minutes;
   late int _seconds;
 
-  RocketTimer(
-      {this.duration = 0,
-      this.status = TimerStatus.initial,
-      this.type = TimerType.normal}) {
+  /// Creates a new [RocketTimer] object with the given [duration], [status], and [type].
+  ///
+  /// The [duration] is the initial duration of the timer in seconds.
+  /// The [status] is the initial status of the timer.
+  /// The [type] is the initial type of the timer.
+  RocketTimer({
+    this.duration = 0,
+    this.status = TimerStatus.initial,
+    this.type = TimerType.normal,
+  }) {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {});
-    _hours = duration ~/ 3600;
-    _minutes = (duration % 3600) ~/ 60;
-    _seconds = duration % 60;
+    handleTimer();
   }
 
+  /// Gets the number of hours in the timer's duration.
   int get hours => _hours;
 
+  /// Gets the number of minutes in the timer's duration.
   int get minutes => _minutes;
 
+  /// Gets the number of seconds in the timer's duration.
   int get seconds => _seconds;
 
+  /// Gets the formatted duration of the timer in the format "HH:MM:SS".
   String get formattedDuration =>
-      '${_formatTime(_hours)}:${_formatTime(_minutes)}:${_formatTime(_seconds)}';
+      '${_hours.formatTime}:${_minutes.formatTime}:${_seconds.formatTime}';
 
-  String _formatTime(int time) => time < 10 ? '0$time' : '$time';
-
+  /// Starts the timer.
+  ///
+  /// If the timer is in the initial or pause state, it will start counting up or down based on the timer type.
+  /// If the timer is already running, this method has no effect.
   void start() {
     _timer.cancel();
     if (status == TimerStatus.initial || status == TimerStatus.pause) {
@@ -59,13 +72,18 @@ class RocketTimer extends ChangeNotifier {
     }
   }
 
+  /// Handles the timer logic by updating the `_hours`, `_minutes`, and `_seconds` properties based on the current `duration` and notifying any listeners of the changes.
   void handleTimer() {
-    _hours = duration ~/ 3600;
-    _minutes = (duration % 3600) ~/ 60;
-    _seconds = duration % 60;
+    _hours = duration.hours;
+    _minutes = duration.minutes;
+    _seconds = duration.seconds;
     notifyListeners();
   }
 
+  /// Pauses the timer.
+  ///
+  /// If the timer is currently running, it will pause counting up or down.
+  /// If the timer is not running, this method has no effect.
   void pause() {
     if (status == TimerStatus.starting) {
       status = TimerStatus.pause;
@@ -74,6 +92,10 @@ class RocketTimer extends ChangeNotifier {
     }
   }
 
+  /// Stops the timer.
+  ///
+  /// If the timer is currently running or paused, it will be stopped and reset to 0.
+  /// If the timer is already stopped, this method has no effect.
   void stop() {
     if (status == TimerStatus.starting || status == TimerStatus.pause) {
       status = TimerStatus.stop;
@@ -82,6 +104,10 @@ class RocketTimer extends ChangeNotifier {
     }
   }
 
+  /// Resets the timer to its initial state with a duration of 0.
+  ///
+  /// If the timer is currently running or paused, it will be stopped and reset to 0.
+  /// If the timer is already in its initial state, this method has no effect.
   void reset() {
     status = TimerStatus.initial;
     duration = 0;
@@ -92,7 +118,10 @@ class RocketTimer extends ChangeNotifier {
     notifyListeners();
   }
 
-  // method to switch between countdown and normal modes
+  /// Switches the timer between countdown and normal modes.
+  ///
+  /// If the timer is currently in normal mode, it will switch to countdown mode and vice versa.
+  /// This method also pauses the timer.
   void switchMode() {
     if (type == TimerType.normal) {
       type = TimerType.countdown;
@@ -104,6 +133,7 @@ class RocketTimer extends ChangeNotifier {
     pause();
   }
 
+  /// Disposes of the timer object.
   @override
   void dispose() {
     _timer.cancel();
