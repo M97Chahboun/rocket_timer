@@ -25,6 +25,10 @@ timer.reset();
 
 // Switch between countdown and normal modes
 timer.switchMode();
+
+// Restart timer
+timer.restart();
+
 ```
 
 To display the timer in a widget, you can use the `RocketTimerBuilder` widget which listens to changes in a `RocketTimer` object and rebuilds the widget tree accordingly:
@@ -75,4 +79,4 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ## API Reference
 
-See the full API reference for the `RocketTimer` class and the `RocketTimerBuilder` widget in the `rocket_timer` [package](https://pub.dev/packages/flutter_rocket) documentation.
+See the full API reference for the `RocketTimer` class and the `RocketTimerBuilder` widget in the `rocket_timer` [package](https://pub.dev/packages/rocket_timer) documentation.
