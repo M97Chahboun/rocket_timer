@@ -9,3 +9,7 @@
 - Added `dispose()` method to `RocketTimer` for cleaning up the timer object.
 - Added comprehensive unit tests for the `RocketTimer` class.
 - Added documentation for the `rocket_timer` package.
+
+## 0.0.2
+- Added `restart` method for restart timer
+- Changed `duration` type from `int` to `Duration`
