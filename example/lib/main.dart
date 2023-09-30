@@ -41,7 +41,7 @@ class MyHomePageState extends State<MyHomePage> {
     super.initState();
     _durationController = TextEditingController();
     _timer = RocketTimer(
-        duration: 0,
+        duration: const Duration(seconds: 0),
         type: _isCountdown ? TimerType.countdown : TimerType.normal);
   }
 
@@ -56,7 +56,7 @@ class MyHomePageState extends State<MyHomePage> {
     int duration = int.tryParse(_durationController.text) ?? 0;
     setState(() {
       if (_timer!.status == TimerStatus.initial) {
-        _timer!.duration = duration;
+        _timer!.kDuration = duration;
       }
       _timer!.start();
     });
